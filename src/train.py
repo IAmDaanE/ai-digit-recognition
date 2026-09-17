@@ -1,6 +1,24 @@
 import numpy as np
 import nnlib_py as nn
 from utils import load_mnist_csv, shuffle_dataset
+import argparse
+from pathlib import Path
+
+parser = argparse.ArgumentParser(
+        description="Train an MNIST prediction model."
+    )
+
+parser.add_index = parser.add_argument(
+        "model_path", 
+        type=str, 
+        help="The path to the folder where the resulting trained model will be saved (e.g., ../models/v1)."
+    )
+
+args = parser.parse_args()
+model_path = args.model_path
+
+Path_path = Path(model_path)
+Path_path.mkdir(parents=True, exist_ok=True)
 
 network = nn.Network(nn.Losses.softmax_cross_entropy)
 network.add(nn.Layer(784, 128, nn.Activations.relu, nn.WeightInitializers.he))
@@ -33,8 +51,8 @@ def run_training(epochs):
             network.visualize(784, 128, 2, 10, 1280, 650, "stretched")
     except KeyboardInterrupt:
         for i, layer in enumerate(network.layers):
-            np.save(f"../models/v2/layer_{i}_weights.npy", layer.weights)
-            np.save(f"../models/v2/layer_{i}_biases.npy", layer.biases)
+            np.save(f"{model_path}/layer_{i}_weights.npy", layer.weights)
+            np.save(f"{model_path}/layer_{i}_biases.npy", layer.biases)
         return
 
 if __name__ == "__main__":

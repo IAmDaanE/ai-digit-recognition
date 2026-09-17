@@ -14,8 +14,12 @@ This repository contains a Python script to train the image classification algor
 
 I used the open-source **MNIST dataset**, which contains 70,000 labeled grayscale images (60,000 for training and 10,000 for testing). To make downloading and loading the data easier, I used the CSV format available [on Kaggle](https://www.kaggle.com/datasets/oddrationale/mnist-in-csv).
 
-### Model Architecture
+### Network Architecture
 The neural network consists of **3 hidden layers** with 128 nodes each. It utilizes **ReLU** activation for the hidden layers and **Softmax** for the output layer to normalize outputs into probabilities. The loss function used is **Cross-Entropy Loss**, which is standard for Softmax classification. With this architecture, the model achieves an impressive **99.5% accuracy**.
+
+### Models
+
+There are two pretrained models: v1 and v2. The first version already had a very decent accuracy of `97.5%` but after adding a decaying learning rate the second version scored a bit higher with `99.5`. I still include the first model for completeness.
 
 ## Project Structure
 
@@ -47,8 +51,9 @@ ml-digit-classification/
 
 To test the pretrained model yourself, run the following command in the project root:
 ```bash
-python src/predict_drawing.py
+python src/predict_drawing.py "../models/v2" 
 ```
+If you want to use a different model replace the string with the path to the desired one.
 
 ### Training Your Own Model
 

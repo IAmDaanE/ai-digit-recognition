@@ -4,6 +4,20 @@ import pygame
 import math
 import random
 from utils import center_drawing, array_to_cords, cords_to_array, softmax
+import argparse
+
+parser = argparse.ArgumentParser(
+        description="Draw a digit and see what the model thinks it is."
+    )
+
+parser.add_index = parser.add_argument(
+        "model_path", 
+        type=str, 
+        help="The path to the folder where the used model will be saved (e.g., ../models/v1)."
+)
+
+args = parser.parse_args()
+model_path = args.model_path
 
 WINDOW_WIDTH = 500
 WINDOW_HEIGHT = 410
@@ -14,9 +28,9 @@ pygame.display.set_caption("AI digit recognition")
 clock = pygame.time.Clock()
 
 network = nn.Network(nn.Losses.softmax_cross_entropy)
-network.add(nn.PreTrainedLayer("../models/v2-9.95%/layer_0_weights.npy", "../models/v2-9.95%/layer_0_biases.npy", nn.Activations.relu))
-network.add(nn.PreTrainedLayer("../models/v2-9.95%/layer_1_weights.npy", "../models/v2-9.95%/layer_1_biases.npy", nn.Activations.relu))
-network.add(nn.PreTrainedLayer("../models/v2-9.95%/layer_2_weights.npy", "../models/v2-9.95%/layer_2_biases.npy", nn.Activations.linear))
+network.add(nn.PreTrainedLayer(f"{model_path}/layer_0_weights.npy", f"{model_path}/layer_0_biases.npy", nn.Activations.relu))
+network.add(nn.PreTrainedLayer(f"{model_path}/layer_1_weights.npy", f"{model_path}/layer_1_biases.npy", nn.Activations.relu))
+network.add(nn.PreTrainedLayer(f"{model_path}/layer_2_weights.npy", f"{model_path}/layer_2_biases.npy", nn.Activations.linear))
 
 font = pygame.font.Font(None, 32)
 big_font = pygame.font.Font(None, 62)
