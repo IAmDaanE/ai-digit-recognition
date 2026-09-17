@@ -73,7 +73,7 @@ Because the dataset files are too large for a GitHub repository, you will need t
 
 ### Testing a Models's Accuracy
 
-To test the pretrained model yourself, run the following command in the project root:
+To measure the accuracy of a model run the following command in the project root:
 ```bash
 python src/accuracy_tester.py "../models/v2" 
 ```
