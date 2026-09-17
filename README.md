@@ -53,19 +53,31 @@ To test the pretrained model yourself, run the following command in the project 
 ```bash
 python src/predict_drawing.py "../models/v2" 
 ```
-If you want to use a different model replace the string with the path to the desired one.
+Want to use a different model? Replace the string with the path to the desired one.
 
 ### Training Your Own Model
 
 Because the dataset files are too large for a GitHub repository, you will need to download `mnist_train.csv` and `mnist_test.csv` manually from [this Kaggle page](https://www.kaggle.com/datasets/oddrationale/mnist-in-csv).
 
 1. Download the CSV files and place them inside the `data/` directory.
+
 2. Open `src/train.py` and configure your desired hyperparameters.
+
 3. Start the training process:
+
    ```bash
-   python src/train.py
+   python src/train.py "../models/v2"
    ```
-4. When you are satisfied with the loss convergence during training, press `Ctrl + C` to safely stop training and save the trained weights and biases.
+
+4. When satisfied with the loss convergence during training, press `Ctrl + C` to safely stop training and save the trained weights and biases.
+
+### Testing a Models's Accuracy
+
+To test the pretrained model yourself, run the following command in the project root:
+```bash
+python src/accuracy_tester.py "../models/v2" 
+```
+Want to test a different model? Replace the string with the path to the desired one.
 
 ## License
 
