@@ -1,5 +1,5 @@
 import numpy as np
-import nnlib_py as nn
+import barebones_ml as bbml
 from utils import load_mnist_csv, shuffle_dataset
 import argparse
 from pathlib import Path
@@ -20,10 +20,10 @@ model_path = args.model_path
 Path_path = Path(model_path)
 Path_path.mkdir(parents=True, exist_ok=True)
 
-network = nn.Network(nn.Losses.softmax_cross_entropy)
-network.add(nn.Layer(784, 128, nn.Activations.relu, nn.WeightInitializers.he))
-network.add(nn.Layer(128, 128, nn.Activations.relu, nn.WeightInitializers.he))
-network.add(nn.Layer(128, 10, nn.Activations.linear, nn.WeightInitializers.xavier))
+network = bbml.Network(bbml.Losses.softmax_cross_entropy)
+network.add(bbml.Layer(784, 128, bbml.Activations.relu, bbml.WeightInitializers.he))
+network.add(bbml.Layer(128, 128, bbml.Activations.relu, bbml.WeightInitializers.he))
+network.add(bbml.Layer(128, 10, bbml.Activations.linear, bbml.WeightInitializers.xavier))
 
 images, labels = load_mnist_csv("../data/mnist_train.csv")
 
@@ -35,7 +35,7 @@ def run_training(epochs):
     try:
         for epoch in range(epochs):
             network.epoch = epoch
-            current_lr = nn.LrDecays.exponential_decay(current_lr, 0.96)
+            current_lr = bbml.LRDecays.exponential_decay(current_lr, 0.96)
             network.current_lr = current_lr
             images, labels = shuffle_dataset(images, labels)
             for i in range(0, images.shape[0], batch_size):

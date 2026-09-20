@@ -1,5 +1,5 @@
 import numpy as np
-import nnlib_py as nn
+import barebones_ml as bbml
 from utils import load_mnist_csv
 import argparse
 
@@ -16,10 +16,10 @@ parser.add_index = parser.add_argument(
 args = parser.parse_args()
 model_path = args.model_path
 
-network = nn.Network(nn.Losses.softmax_cross_entropy)
-network.add(nn.PreTrainedLayer(f"{model_path}/layer_0_weights.npy", f"{model_path}/layer_0_biases.npy", nn.Activations.relu))
-network.add(nn.PreTrainedLayer(f"{model_path}/layer_1_weights.npy", f"{model_path}/layer_1_biases.npy", nn.Activations.relu))
-network.add(nn.PreTrainedLayer(f"{model_path}/layer_2_weights.npy", f"{model_path}/layer_2_biases.npy", nn.Activations.linear))
+network = bbml.Network(bbml.Losses.softmax_cross_entropy)
+network.add(bbml.PreTrainedLayer(f"{model_path}/layer_0_weights.npy", f"{model_path}/layer_0_biases.npy", bbml.Activations.relu))
+network.add(bbml.PreTrainedLayer(f"{model_path}/layer_1_weights.npy", f"{model_path}/layer_1_biases.npy", bbml.Activations.relu))
+network.add(bbml.PreTrainedLayer(f"{model_path}/layer_2_weights.npy", f"{model_path}/layer_2_biases.npy", bbml.Activations.linear))
 
 images, labels = load_mnist_csv("../data/mnist_test.csv")
 

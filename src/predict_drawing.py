@@ -1,4 +1,4 @@
-import nnlib_py as nn
+import barebones_ml as bbml
 import numpy as np
 import pygame
 import math
@@ -27,10 +27,10 @@ screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("AI digit recognition")
 clock = pygame.time.Clock()
 
-network = nn.Network(nn.Losses.softmax_cross_entropy)
-network.add(nn.PreTrainedLayer(f"{model_path}/layer_0_weights.npy", f"{model_path}/layer_0_biases.npy", nn.Activations.relu))
-network.add(nn.PreTrainedLayer(f"{model_path}/layer_1_weights.npy", f"{model_path}/layer_1_biases.npy", nn.Activations.relu))
-network.add(nn.PreTrainedLayer(f"{model_path}/layer_2_weights.npy", f"{model_path}/layer_2_biases.npy", nn.Activations.linear))
+network = bbml.Network(bbml.Losses.softmax_cross_entropy)
+network.add(bbml.PreTrainedLayer(f"{model_path}/layer_0_weights.npy", f"{model_path}/layer_0_biases.npy", bbml.Activations.relu))
+network.add(bbml.PreTrainedLayer(f"{model_path}/layer_1_weights.npy", f"{model_path}/layer_1_biases.npy", bbml.Activations.relu))
+network.add(bbml.PreTrainedLayer(f"{model_path}/layer_2_weights.npy", f"{model_path}/layer_2_biases.npy", bbml.Activations.linear))
 
 font = pygame.font.Font(None, 32)
 big_font = pygame.font.Font(None, 62)

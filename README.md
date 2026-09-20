@@ -1,6 +1,6 @@
 # MNIST Digit Recognition
 
-A neural network algorithm that recognizes and classifies hand-drawn digits. Written in **Python** using my very own [neural network machine learning library](https://github.com/IAmDaanE/neural-network-library).
+A neural network algorithm that recognizes and classifies hand-drawn digits. Written in **Python** using my very own [neural network & machine learning library](https://github.com/IAmDaanE/bare-bones-ml).
 
 ---
 
