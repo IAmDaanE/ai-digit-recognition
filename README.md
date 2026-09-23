@@ -36,16 +36,13 @@ ml-digit-classification/
 
 ## Getting Started
 
-### Installation
+### Installing Libraries
 
-**Requirements**: Python 3.10 - 3.13
+**Requires:** Python 3.10 - 3.14
 
-1. Clone the repository or download and unpack the ZIP file.
-2. Open your terminal and navigate to the project directory.
-3. Install the required dependencies (preferably within a virtual environment):
-   ```bash
-   pip install -r requirements.txt
-   ```
+```
+pip install -r requirements.txt
+```
 
 ### Running the Drawing Environment
 
