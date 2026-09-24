@@ -1,1 +1,3 @@
 git+https://github.com/IAmDaanE/bare-bones-ml.git@master
+numpy
+pygame-ce
