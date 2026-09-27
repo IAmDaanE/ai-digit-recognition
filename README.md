@@ -20,13 +20,19 @@ I already pretrained 2 models which you can find in the models/ folder, more inf
 
 ```text
 ml-digit-classification/
-├── data/                  # Directory for the MNIST dataset CSV files
-├── models/                # Pretrained models stored as pure NumPy arrays (weights and biases)
-└── src/
-    ├── accuracy_tester.py # Tests model accuracy on the test dataset
-    ├── predict_drawing.py # The GUI environment for drawing digits
-    ├── train.py           # The main training loop
-    └── utils.py           # Reusable helper functions
+├── data/                   # Directory for the MNIST dataset CSV files
+├── models/                 # Pretrained models stored as pure NumPy arrays
+    ├── v1/   
+    └── v2/
+├── src/
+    ├── predict_drawing.py  # The GUI environment for drawing digits
+    ├── train.py            # The main training loop
+    └── utils.py            # Reusable helper functions
+├── tools/
+    ├── accuracy_tester.py  # Tests model accuracy on the test dataset
+    └── hall_of_fails.py    # Shows the wrong guesses
+└── output/
+    └── fails.json          # The output of accuracy_tester.py
 ```
 
 ## Getting Started

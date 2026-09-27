@@ -1,4 +1,4 @@
 data/*
 !data/.gitkeep
 __pycache__/
-tools/failed_drawings.json
+tools/fails.json
