@@ -33,9 +33,9 @@ left_button_rect = pygame.Rect(padding, padding * 2 + 420, button_width, button_
 right_button_rect = pygame.Rect(padding * 3 + button_width * 2, padding * 2 + 420, button_width, button_height)
 page_text_rect = pygame.Rect(padding * 2 + button_width, padding * 2 + 420, button_width, button_height)
 
-button_font = pygame.font.Font("../assets/Poppins-Regular.ttf", 30)
-page_text_font = pygame.font.Font("../assets/Poppins-Bold.ttf", 24)
-info_font = pygame.font.Font("../assets/Poppins-Regular.ttf", 20)
+button_font = pygame.font.Font("../assets/JetBrainsMono-Regular.ttf", 30)
+page_text_font = pygame.font.Font("../assets/JetBrainsMono-Bold.ttf", 24)
+info_font = pygame.font.Font("../assets/JetBrainsMono-Regular.ttf", 17)
 
 running = True
 
@@ -61,14 +61,16 @@ while running:
 
     pygame.draw.rect(screen, (0, 0, 0), diag_rect)
     pygame.draw.rect(screen, (0, 173, 181), diag_rect, width=1)
-    model_guess_text = info_font.render(f"Model Guess: {fails[cur_fail_id]['guessed']}", True, (255, 255, 255))
-    correct_label_text = info_font.render(f"Correct Label: {fails[cur_fail_id]['actual']}", True, (255, 255, 255))
-    confidence_text = info_font.render(f"Confidence: {fails[cur_fail_id]['confidence']}%", True, (255, 255, 255))
-    model_name_text = info_font.render(f"Model Name: {model_name}", True, (255, 255, 255))
-    screen.blit(model_guess_text, (diag_rect.x + 12, padding + 4))
-    screen.blit(correct_label_text, (diag_rect.x + 12, model_guess_text.height + padding + 10))
-    screen.blit(confidence_text, (diag_rect.x + 12, correct_label_text.height + model_guess_text.height + 16 + padding))
-    screen.blit(model_name_text, (diag_rect.x + 12, 402))
+    model_guess_text = info_font.render(f"Model Guess:  {fails[cur_fail_id]['guessed']}", True, (255, 255, 255))
+    correct_label_text = info_font.render(f"Correct Label:  {fails[cur_fail_id]['actual']}", True, (255, 255, 255))
+    confidence_text = info_font.render(f"Confidence:  {fails[cur_fail_id]['confidence']:.2f}%", True, (255, 255, 255))
+    image_id_text = info_font.render(f"MNIST Test ID:  {fails[cur_fail_id]['image_id']}", True, (255, 255, 255))
+    model_name_text = info_font.render(f"Model Name:  {model_name}", True, (255, 255, 255))
+    screen.blit(model_guess_text, (diag_rect.x + 12, padding + 7))
+    screen.blit(correct_label_text, (diag_rect.x + 12, model_guess_text.height + padding + 13))
+    screen.blit(confidence_text, (diag_rect.x + 12, correct_label_text.height + model_guess_text.height + 19 + padding))
+    screen.blit(image_id_text, (diag_rect.x + 12, correct_label_text.height + model_guess_text.height + confidence_text.height + 25 + padding))
+    screen.blit(model_name_text, (diag_rect.x + 12, 408))
 
     pygame.draw.rect(screen, (0, 173, 181), left_button_rect)
     left_text = button_font.render("<<", True, (0, 0, 0))
