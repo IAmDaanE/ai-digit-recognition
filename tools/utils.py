@@ -12,4 +12,4 @@ def load_mnist_csv(file_path):
 def array_to_cords(number_input):
     y = np.floor(number_input / 28)
     x = number_input - y * 28
-    return (x,y)
+    return x, y
