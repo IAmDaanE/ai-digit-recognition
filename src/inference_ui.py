@@ -32,25 +32,11 @@ network.add(bbml.PreTrainedLayer(f"{model_path}/layer_0_weights.npy", f"{model_p
 network.add(bbml.PreTrainedLayer(f"{model_path}/layer_1_weights.npy", f"{model_path}/layer_1_biases.npy", bbml.Activations.relu))
 network.add(bbml.PreTrainedLayer(f"{model_path}/layer_2_weights.npy", f"{model_path}/layer_2_biases.npy", bbml.Activations.linear))
 
-font = pygame.font.Font(None, 32)
-big_font = pygame.font.Font(None, 62)
-
 pixelmatrix = np.zeros(784)
-virtual_pixel_size = 12
+img_scale = 15
 results = {}
 empty = True
 amount_predictions_shown = 5
-
-button_width = 120
-button_height = 45
-button_hor_gap = ((28 * virtual_pixel_size) - 2 * button_width) / 3
-button_y = ((WINDOW_HEIGHT - virtual_pixel_size * 28) - button_height) / 2 + virtual_pixel_size * 28 + 2
-clear_button_rect = pygame.Rect(button_hor_gap, button_y, button_width, button_height)
-center_button_rect = pygame.Rect(button_hor_gap * 2 + button_width, button_y, button_width, button_height)
-
-confidence_bar_max_width = WINDOW_WIDTH - 28 * virtual_pixel_size - 3
-confidence_bar_height = 28 * virtual_pixel_size / amount_predictions_shown
-confidence_bar_x = 28 * virtual_pixel_size + 3
 
 running = True
 
@@ -68,9 +54,9 @@ while running:
                         pixelmatrix = center_drawing(pixelmatrix)
 
     # drawing logic
-    if pygame.mouse.get_pressed()[0] and pygame.mouse.get_pos()[0] < virtual_pixel_size * 28 - 1 and pygame.mouse.get_pos()[1] < virtual_pixel_size * 28 - 1 and pygame.mouse.get_pos()[0] > 1 and pygame.mouse.get_pos()[1] > 1:
+    if pygame.mouse.get_pressed()[0] and pygame.mouse.get_pos()[0] < img_scale * 28 - 1 and pygame.mouse.get_pos()[1] < img_scale * 28 - 1 and pygame.mouse.get_pos()[0] > 1 and pygame.mouse.get_pos()[1] > 1:
         empty = False
-        matrix_location = (round(pygame.mouse.get_pos()[0] / virtual_pixel_size) - 1, round(pygame.mouse.get_pos()[1] / virtual_pixel_size) - 1)
+        matrix_location = (round(pygame.mouse.get_pos()[0] / img_scale) - 1, round(pygame.mouse.get_pos()[1] / img_scale) - 1)
         center_pix = cords_to_array(matrix_location)
         top_pix = cords_to_array((matrix_location[0], matrix_location[1] - 1))
         right_pix = cords_to_array((matrix_location[0] + 1, matrix_location[1]))
@@ -94,7 +80,7 @@ while running:
     # ai logic
     if not empty:
         prediction_array = network.forward(pixelmatrix)[0]
-        softmaxed_prediction_array = softmax(prediction_array)
+        softmax_prediction_array = softmax(prediction_array)
         for i in range(10):
             results[i] = softmaxed_prediction_array[i]
         sorted_results = [
@@ -103,27 +89,4 @@ while running:
         ]
 
     # displaying
-    screen.fill((2, 56, 41))
-    pygame.draw.rect(screen, (0,0,0), (28 * virtual_pixel_size + 1, 1, 1, WINDOW_HEIGHT))
-    pygame.draw.rect(screen, (0,0,0), (1, 28 * virtual_pixel_size + 1, WINDOW_WIDTH, 1))
-    pygame.draw.rect(screen, (0,0,0), clear_button_rect, width=1, border_radius=3)
-    clear_text = font.render("CLEAR", True, (0,0,0))
-    clear_text_surface = clear_text.get_rect()
-    clear_text_surface.center = clear_button_rect.center
-    screen.blit(clear_text, clear_text_surface)
-    pygame.draw.rect(screen, (0,0,0), center_button_rect, width=1, border_radius=3)
-    center_text = font.render("CENTER", True, (0,0,0))
-    center_text_surface = center_text.get_rect()
-    center_text_surface.center = center_button_rect.center
-    screen.blit(center_text, center_text_surface)
-    for i, virtual_pixel in enumerate(pixelmatrix):
-        x,y = array_to_cords(i)
-        pygame.draw.rect(screen, (virtual_pixel * 255, virtual_pixel * 255, virtual_pixel * 255), (x * virtual_pixel_size, y * virtual_pixel_size, virtual_pixel_size, virtual_pixel_size))
-    if not empty:
-        for i in range(amount_predictions_shown):
-            pygame.draw.rect(screen, (0,0,0), (confidence_bar_x, confidence_bar_height * i, confidence_bar_max_width * sorted_results[i]["confidence"], confidence_bar_height))
-            number_text = font.render(str(sorted_results[i]["number"]), True, (255,255,255))
-            screen.blit(number_text, (confidence_bar_x + 8, (confidence_bar_height * i) + confidence_bar_height / 2 - number_text.get_height() / 2))
-        big_number_text = big_font.render(str(sorted_results[0]["number"]), True, (255,255,255))
-        screen.blit(big_number_text, (((WINDOW_WIDTH - 28 * virtual_pixel_size) / 2 - big_number_text.get_width() / 2) + 28 * virtual_pixel_size, ((WINDOW_HEIGHT - 28 * virtual_pixel_size) / 2 - big_number_text.get_height() / 2) + 3 + 28 * virtual_pixel_size))
-    pygame.display.update()
+    screen.fill((51, 51, 51))
