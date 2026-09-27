@@ -52,7 +52,7 @@ while running:
                 if cur_fail_id < amount_fails - 1:
                     cur_fail_id += 1
     
-    screen.fill((51, 51, 51))
+    screen.fill((30, 30, 30))
     for i, color in enumerate(images[fails[cur_fail_id]["image_id"]]):
         x, y = array_to_cords(i)
         rgb_color = (round(color * 255), round(color * 255), round(color * 255))
@@ -72,15 +72,15 @@ while running:
     screen.blit(image_id_text, (diag_rect.x + 12, correct_label_text.height + model_guess_text.height + confidence_text.height + 25 + padding))
     screen.blit(model_name_text, (diag_rect.x + 12, 408))
 
-    pygame.draw.rect(screen, (0, 173, 181), left_button_rect)
-    pygame.draw.rect(screen, (0, 0, 0), left_button_rect, width=1)
-    left_text = button_font.render("<<", True, (0, 0, 0))
+    pygame.draw.rect(screen, (0, 173, 181), left_button_rect, width=1)
+    #pygame.draw.rect(screen, (0, 0, 0), left_button_rect, width=1)
+    left_text = button_font.render("<<", True, (0, 173, 181))
     left_text_rect = left_text.get_rect(center=left_button_rect.center)
     screen.blit(left_text, left_text_rect)
     
-    pygame.draw.rect(screen, (0, 173, 181), right_button_rect)
-    pygame.draw.rect(screen, (0, 0, 0), right_button_rect, width=1)
-    right_text = button_font.render(">>", True, (0, 0, 0))
+    pygame.draw.rect(screen, (0, 173, 181), right_button_rect, width=1)
+    #pygame.draw.rect(screen, (0, 0, 0), right_button_rect, width=1)
+    right_text = button_font.render(">>", True, (0, 173, 181))
     right_text_rect = right_text.get_rect(center=right_button_rect.center)
     screen.blit(right_text, right_text_rect)
 
