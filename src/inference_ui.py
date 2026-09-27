@@ -30,19 +30,25 @@ network.add(bbml.PreTrainedLayer(f"{model_path}/layer_1_weights.npy", f"{model_p
 network.add(bbml.PreTrainedLayer(f"{model_path}/layer_2_weights.npy", f"{model_path}/layer_2_biases.npy", bbml.Activations.linear))
 
 button_font = pygame.font.Font("../assets/JetBrainsMono-Regular.ttf", 30)
-result_font = pygame.font.Font("../assets/JetBrainsMono-Bold.ttf", 55)
+result_font = pygame.font.Font("../assets/JetBrainsMono-Bold.ttf", 65)
 info_font = pygame.font.Font("../assets/JetBrainsMono-Regular.ttf", 17)
 bars_font = pygame.font.Font("../assets/JetBrainsMono-Regular.ttf", 13)
 
 pixelmatrix = np.zeros(784)
 img_scale = 15
 results = {}
+sorted_results = []
 empty = True
-amount_predictions_shown = 5
+amount_predictions_shown = 6
 
 padding = 20
 window_width = 880
 window_height = 522
+prediction_bars_x = 420 + 2 * padding + 60
+prediction_bars_height = 14
+prediction_bars_width = window_width - prediction_bars_x - padding * 2 - 1
+prediction_bars_spacing = 59
+prediction_bars_offset = 10
 
 image_rect = pygame.Rect(padding, padding, 420, 420)
 clear_button_rect = pygame.Rect(padding, padding * 2 + 420, 200, 42)
@@ -50,6 +56,10 @@ center_button_rect = pygame.Rect(padding * 2 + 200, padding * 2 + 420, 200, 42)
 bars_window_rect = pygame.Rect(padding * 2 + 420, 112 + padding * 2, 400, 350)
 result_rect = pygame.Rect(padding * 2 + 420, padding, 112, 112)
 info_rect = pygame.Rect(padding * 3 + 420 + 112, padding, 268, 112)
+
+prediction_bars_rects = []
+for i in range(amount_predictions_shown):
+    prediction_bars_rects.append(pygame.Rect(prediction_bars_x, 2 * padding + 122 + prediction_bars_offset + i * prediction_bars_spacing, prediction_bars_width, prediction_bars_height))
 
 running = True
 
@@ -121,9 +131,29 @@ while running:
     center_button_text_rect = center_button_text.get_rect(center=center_button_rect.center)
     screen.blit(center_button_text, center_button_text_rect)
 
+    pygame.draw.rect(screen, (0, 0, 0), bars_window_rect)
     pygame.draw.rect(screen, (0, 173, 181), bars_window_rect, width=1)
+    if not empty:
+        for rect in prediction_bars_rects:
+            pygame.draw.rect(screen, (30, 30, 30), rect)
+            pygame.draw.rect(screen, (100, 100, 100), rect, width=1)
+        for i, output in enumerate(sorted_results):
+            if i < amount_predictions_shown:
+                output_text = bars_font.render(f"[{output['number']}]", True, (255, 255, 255))
+                screen.blit(output_text, (prediction_bars_rects[i].x - 39, prediction_bars_rects[i].y - 2))
+                confidence = output["confidence"]
+                bar = prediction_bars_rects[i].copy()
+                bar.width = prediction_bars_width * confidence
+                pygame.draw.rect(screen, (0, 173, 181), bar)
+            else:
+                break
 
     pygame.draw.rect(screen, (0, 173, 181), result_rect, width=1)
+    if not empty:
+        result_digit = sorted_results[0]["number"]
+        result_text = result_font.render(str(result_digit), True, (0, 173, 181))
+        result_text_rect = result_text.get_rect(center=result_rect.center)
+        screen.blit(result_text, result_text_rect)
 
     pygame.draw.rect(screen, (0, 173, 181), info_rect, width=1)
 
