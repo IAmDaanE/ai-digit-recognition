@@ -84,7 +84,7 @@ while running:
     right_text_rect = right_text.get_rect(center=right_button_rect.center)
     screen.blit(right_text, right_text_rect)
 
-    pygame.draw.rect(screen, (0, 0, 0), page_text_rect)
+    pygame.draw.rect(screen, (0, 173, 181), page_text_rect)
     pygame.draw.rect(screen, (0, 173, 181), page_text_rect, width=1)
     page_text_text = page_text_font.render(f"{cur_fail_id + 1}/{amount_fails}", True, (255, 255, 255))
     page_text_text_rect = page_text_text.get_rect(center=page_text_rect.center)

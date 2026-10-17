@@ -1,6 +1,6 @@
 import numpy as np
 import barebones_ml as bbml
-from utils import load_mnist_csv
+from utils import load_mnist_csv, softmax
 import argparse
 import os
 from pathlib import Path
@@ -19,14 +19,21 @@ parser.add_argument(
 args = parser.parse_args()
 model_path = Path(args.model_path)
 
-network = bbml.Network(bbml.Losses.softmax_cross_entropy)
-network.add(bbml.PreTrainedLayer(model_path / "layer_0_weights.npy", model_path / "layer_0_biases.npy", bbml.Activations.relu))
-network.add(bbml.PreTrainedLayer(model_path / "layer_1_weights.npy", model_path / "layer_1_biases.npy", bbml.Activations.relu))
-network.add(bbml.PreTrainedLayer(model_path / "layer_2_weights.npy", model_path / "layer_2_biases.npy", bbml.Activations.linear))
+amount_layers = 0
+activations = []
+with open(model_path / "model.json") as f:
+    raw_unloaded_data = json.load(f)
+    amount_layers = raw_unloaded_data["amount_layers"]
+    activations = raw_unloaded_data["activations"]
+
+network = bbml.Network("softmax_cross_entropy")
+for i in range(amount_layers):
+    network.add(bbml.PreTrainedLayer(model_path / f"layer_{i}_weights.npy", model_path / f"layer_{i}_biases.npy", activations[i]))
 
 images, labels = load_mnist_csv("../data/mnist_test.csv")
 
 predictions = network.forward(images)
+softmaxed_predictions = softmax(predictions)
 
 guessed_numbers = np.argmax(predictions, axis=1)
 actual_numbers = np.argmax(labels, axis=1)
@@ -38,12 +45,12 @@ fails = []
 
 for idx in wrong_indexes:
     predicted_class = int(guessed_numbers[idx])
-    confidence = float(predictions[idx][predicted_class])    
+    confidence = float(softmaxed_predictions[idx][predicted_class])
     fail_entry = {
         "image_id": int(idx),
         "actual": int(actual_numbers[idx]),
         "guessed": predicted_class,
-        "confidence": round(confidence, 4)
+        "confidence": round(confidence * 100, 4)
     }
     fails.append(fail_entry)
 

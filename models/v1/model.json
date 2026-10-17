@@ -1,0 +1,1 @@
+{"amount_layers": 3, "activations": ["relu", "relu", "linear"]}

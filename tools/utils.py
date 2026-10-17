@@ -13,3 +13,8 @@ def array_to_cords(number_input):
     y = np.floor(number_input / 28)
     x = number_input - y * 28
     return x, y
+
+def softmax(output_array):
+    shift_array = output_array - np.max(output_array, axis=-1, keepdims=True)
+    exps = np.exp(shift_array)
+    return exps / np.sum(exps, axis=-1, keepdims=True)

@@ -5,6 +5,8 @@ import math
 import random
 from utils import center_drawing, array_to_cords, cords_to_array, softmax
 import argparse
+from pathlib import Path
+import json
 
 parser = argparse.ArgumentParser(
         description="Draw a digit and see what the model thinks it is."
@@ -17,21 +19,27 @@ parser.add_index = parser.add_argument(
 )
 
 args = parser.parse_args()
-model_path = args.model_path
+model_path = Path(args.model_path)
 
 pygame.init()
 screen = pygame.display.set_mode((880, 522))
 pygame.display.set_caption("AI Handdrawn Digit Recognition")
 clock = pygame.time.Clock()
 
-network = bbml.Network(bbml.Losses.softmax_cross_entropy)
-network.add(bbml.PreTrainedLayer(f"{model_path}/layer_0_weights.npy", f"{model_path}/layer_0_biases.npy", bbml.Activations.relu))
-network.add(bbml.PreTrainedLayer(f"{model_path}/layer_1_weights.npy", f"{model_path}/layer_1_biases.npy", bbml.Activations.relu))
-network.add(bbml.PreTrainedLayer(f"{model_path}/layer_2_weights.npy", f"{model_path}/layer_2_biases.npy", bbml.Activations.linear))
+amount_layers = 0
+activations = []
+with open(model_path / "model.json") as f:
+    raw_unloaded_data = json.load(f)
+    amount_layers = raw_unloaded_data["amount_layers"]
+    activations = raw_unloaded_data["activations"]
+
+network = bbml.Network("softmax_cross_entropy")
+for i in range(amount_layers):
+    network.add(bbml.PreTrainedLayer(model_path / f"layer_{i}_weights.npy", model_path / f"layer_{i}_biases.npy", activations[i]))
 
 button_font = pygame.font.Font("../assets/JetBrainsMono-Regular.ttf", 30)
 result_font = pygame.font.Font("../assets/JetBrainsMono-Bold.ttf", 65)
-info_font = pygame.font.Font("../assets/JetBrainsMono-Regular.ttf", 17)
+info_font = pygame.font.Font("../assets/JetBrainsMono-Regular.ttf", 22)
 bars_font = pygame.font.Font("../assets/JetBrainsMono-Regular.ttf", 13)
 
 pixelmatrix = np.zeros(784)
@@ -148,13 +156,19 @@ while running:
             else:
                 break
 
+    pygame.draw.rect(screen, (0, 0, 0), result_rect)
     pygame.draw.rect(screen, (0, 173, 181), result_rect, width=1)
     if not empty:
         result_digit = sorted_results[0]["number"]
-        result_text = result_font.render(str(result_digit), True, (0, 173, 181))
+        result_text = result_font.render(str(result_digit), True, (255, 153, 51))
         result_text_rect = result_text.get_rect(center=result_rect.center)
         screen.blit(result_text, result_text_rect)
 
+    pygame.draw.rect(screen, (0, 0, 0), info_rect)
     pygame.draw.rect(screen, (0, 173, 181), info_rect, width=1)
+    model_name_text = info_font.render(f"model name: {model_path.name}", True, (255, 255, 255))
+    amount_layers_text = info_font.render(f"amount layers: {len(network.layers) + 1}", True, (255, 255, 255))
+    screen.blit(model_name_text, (info_rect.x + 15, info_rect.y + 16))
+    screen.blit(amount_layers_text, (info_rect.x + 15, info_rect.y + 60))
 
     pygame.display.update()
