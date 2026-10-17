@@ -18,11 +18,13 @@ You can find the 2 pretrained models in the models/ folder, more info on them in
 
 When running the training process a window will open to follow some stats, the loss progression and a visualization of the network with its nodes and weights.
 
+
 ### Inference UI
 
 <img src="assets/screenshots/inference_ui.png" align="right" width="300">
 
 To interactivelly test a trained model there is inference_ui.py, you draw a digit and see what the model thinks it is in real time.
+
 
 ### Hall of Fails
 
