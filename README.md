@@ -14,13 +14,19 @@ You can find the 2 pretrained models in the models/ folder, more info on them in
 
 ### Training
 
+<img src="assets/screenshots/training.png" align="right" width="300">
+
 When running the training process a window will open to follow some stats, the loss progression and a visualization of the network with its nodes and weights.
 
 ### Inference UI
 
+<img src="assets/screenshots/inference_ui.png" align="right" width="300">
+
 To interactivelly test a trained model there is inference_ui.py, you draw a digit and see what the model thinks it is in real time.
 
 ### Hall of Fails
+
+<img src="assets/screenshots/hall_of_fails.png" align="right" width="300">
 
 When testing a models accuracy with tools/accuracy_tester.py it will save all the wrong guesses inside output/fails.json. Hall of Fails takes the data inside this and visualizes it in a nice ui. Go through all the images and see the weak points and what shapes and digits the model is having trouble with.
 
