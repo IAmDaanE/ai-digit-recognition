@@ -12,12 +12,15 @@ I used the open-source **MNIST dataset**, which contains 70,000 labeled grayscal
 
 You can find the 2 pretrained models in the models/ folder, more info on them in models/README.md.
 
+---
+
 ### Training
 
 <img src="assets/screenshots/training.png" align="right" width="300">
 
 When running the training process a window will open to follow some stats, the loss progression and a visualization of the network with its nodes and weights.
 
+---
 
 ### Inference UI
 
@@ -25,6 +28,7 @@ When running the training process a window will open to follow some stats, the l
 
 To interactivelly test a trained model there is inference_ui.py, you draw a digit and see what the model thinks it is in real time.
 
+---
 
 ### Hall of Fails
 
