@@ -4,17 +4,25 @@ A neural network algorithm that recognizes and classifies hand-drawn digits. Wri
 
 ---
 
-<img width="743" height="590" alt="MNIST Drawing Environment" src="https://github.com/user-attachments/assets/55823e0d-9652-4b92-af39-814db965db86" />
-
-*The interactive drawing environment*
-
 ## About the Project
 
-This repository contains a Python script to train the image classification algorithm, two pretrained models, and a GUI environment where you can draw a digit and see the model's prediction in real-time. 
+This repository contains a Python script to train the image classification algorithm, two pretrained models, a model's accuracy tester scipt, hall of fails where you can see what the tested model got wrong and a GUI environment where you can draw a digit and see the model's prediction in real-time.
 
 I used the open-source **MNIST dataset**, which contains 70,000 labeled grayscale images (60,000 for training and 10,000 for testing). To make downloading and loading the data easier, I used the CSV format available [on Kaggle](https://www.kaggle.com/datasets/oddrationale/mnist-in-csv).
 
-I already pretrained 2 models which you can find in the models/ folder, more info on them in models/README.md.
+You can find the 2 pretrained models in the models/ folder, more info on them in models/README.md.
+
+### Training
+
+When running the training process a window will open to follow some stats, the loss progression and a visualization of the network with its nodes and weights.
+
+### Inference UI
+
+To interactivelly test a trained model there is inference_ui.py, you draw a digit and see what the model thinks it is in real time.
+
+### Hall of Fails
+
+When testing a models accuracy with tools/accuracy_tester.py it will save all the wrong guesses inside output/fails.json. Hall of Fails takes the data inside this and visualizes it in a nice ui. Go through all the images and see the weak points and what shapes and digits the model is having trouble with.
 
 ## Project Structure
 
@@ -30,7 +38,8 @@ ml-digit-classification/
     └── utils.py            # Reusable helper functions
 ├── tools/
     ├── accuracy_tester.py  # Tests model accuracy on the test dataset
-    └── hall_of_fails.py    # Shows the wrong guesses
+    ├── hall_of_fails.py    # Shows the wrong guesses
+    └── utils.py            # Reusable helper functions
 └── output/
     └── fails.json          # The output of accuracy_tester.py
 ```
@@ -45,11 +54,11 @@ ml-digit-classification/
 pip install -r requirements.txt
 ```
 
-### Running the Drawing Environment
+### Running the Inference UI
 
 To test the pretrained model yourself, run the following command in the project root:
 ```bash
-python src/predict_drawing.py "../models/v2" 
+python src/inference_ui.py "models/v2" 
 ```
 Want to use a different model? Replace the string with the path to the desired one.
 
@@ -64,7 +73,7 @@ Because the dataset files are too large for a GitHub repository, you will need t
 3. Start the training process, replace the string with the location of where you want to stored the trained model's weights and biases:
 
    ```bash
-   python src/train.py "../models/v3"
+   python src/train.py "models/v3"
    ```
 
 4. When satisfied with the loss convergence during training, press `Ctrl + C` to safely stop training and save the trained weights and biases.
@@ -72,10 +81,22 @@ Because the dataset files are too large for a GitHub repository, you will need t
 ### Testing a Models's Accuracy
 
 To measure the accuracy of a model run the following command in the project root:
+
 ```bash
-python src/accuracy_tester.py "../models/v2" 
+python src/accuracy_tester.py "models/v2" 
 ```
+
 Want to test a different model? Replace the string with the path to the desired one.
+
+### Running the Hall of Fails
+
+Use the following command in the project root:
+
+```
+python tools/hall_of_fails.py
+```
+
+This shows the fails of the latest model you tested the accuracy of.
 
 ## License
 
