@@ -4,7 +4,7 @@ import pygame
 
 pygame.init()
 screen = pygame.display.set_mode((840, 522))
-pygame.display.set_caption("AI Model Diagnostics")
+pygame.display.set_caption("MNIST Model Hall of Fails")
 clock = pygame.time.Clock()
 
 images, labels = load_mnist_csv("../data/mnist_test.csv")

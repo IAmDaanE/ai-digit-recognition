@@ -23,7 +23,7 @@ model_path = Path(args.model_path)
 
 pygame.init()
 screen = pygame.display.set_mode((880, 522))
-pygame.display.set_caption("AI Handdrawn Digit Recognition")
+pygame.display.set_caption("MNIST Model Inference UI")
 clock = pygame.time.Clock()
 
 amount_layers = 0
