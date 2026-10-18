@@ -94,7 +94,7 @@ Because the dataset files are too large for a GitHub repository, you will need t
 To measure the accuracy of a model run the following command in the project root:
 
 ```bash
-python src/accuracy_tester.py "models/v2" 
+python tools/accuracy_tester.py "models/v2" 
 ```
 
 Want to test a different model? Replace the string with the path to the desired one.
