@@ -8,7 +8,7 @@ ReLu activation for the hidden layers, softmax activation for the output layer. 
 
 Hyperparameters: 
 
-* 1800 Epochs
+* 35 Epochs
 * 0.05 Learning Rate
 * 1 input 
 * 3 hidden layers - 128 nodes per hidden layer
