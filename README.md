@@ -2,8 +2,6 @@
 
 A neural network algorithm that recognizes and classifies hand-drawn digits. Written in Python using my very own [barebones_ml](https://github.com/IAmDaanE/bare-bones-ml) neural network & machine learning library.
 
----
-
 ## About the Project
 
 This repository contains a Python script to train the image classification algorithm, two pretrained models, a model's accuracy tester scipt, hall of fails where you can see what the tested model got wrong and a GUI environment where you can draw a digit and see the model's prediction in real-time.
