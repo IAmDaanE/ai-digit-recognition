@@ -4,7 +4,7 @@ A neural network algorithm that recognizes and classifies hand-drawn digits. Wri
 
 ## About the Project
 
-This repository contains a Python script to train the image classification algorithm, two pretrained models, a model's accuracy tester scipt, hall of fails where you can see what the tested model got wrong and a GUI environment where you can draw a digit and see the model's prediction in real-time.
+This repository contains a Python script to train the image classification algorithm, two pretrained models, a model's accuracy tester scipt, hall of fails where you can see what the tested model got wrong and a GUI environment to draw a digit and see the model's prediction in real-time.
 
 I used the open-source **MNIST dataset**, which contains 70,000 labeled grayscale images (60,000 for training and 10,000 for testing). To make downloading and loading the data easier, I used the CSV format available [on Kaggle](https://www.kaggle.com/datasets/oddrationale/mnist-in-csv).
 
