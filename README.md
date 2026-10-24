@@ -15,7 +15,7 @@ You can find the 2 pretrained models in the models/ folder, more info on them in
 
 <img src="assets/screenshots/training.png" align="right" width="400">
 
-When running the training process a pygame window will open to follow some stats like the amount of hidden layers and the size of a hidden layer, the learning rate epoch and loss, the name of the model thats currenly being trained... In the top right there is also a nice line graph to visualize the progression of the loss and if wanted also learning rate. I wrote a pygame x matplotlib graphing library specifically for this usecase: [pgplot](https://github.com/IAmDaanE/pygame-plot). On top of that there is a visualization of the current network with its weights and nodes.
+When running the training process a big feature of my barebones_ml library is that a pygame window will open to follow some stats like the amount of hidden layers and the size of a hidden layer, the learning rate epoch and loss, the name of the model thats currenly being trained... In the top right there is also a nice line graph to visualize the progression of the loss and if wanted also learning rate. I wrote a pygame x matplotlib graphing library specifically for this usecase: [pgplot](https://github.com/IAmDaanE/pygame-plot). On top of that there is a visualization of the current network with its weights and nodes.
 
 <br clear="right">
 
