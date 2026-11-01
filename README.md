@@ -38,7 +38,7 @@ When testing a models accuracy with tools/accuracy_tester.py it will save all th
 ## Project Structure
 
 ```text
-ml-digit-classification/
+ai-digit-recognition/
 ├── data/                   # Directory for the MNIST dataset CSV files
 ├── models/                 # Pretrained models stored as pure NumPy arrays
     ├── v1/   
