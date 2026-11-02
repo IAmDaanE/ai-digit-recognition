@@ -21,7 +21,7 @@ model_path = Path(args.model_path)
 model_path.mkdir(parents=True, exist_ok=True)
 
 pygame.init()
-screen = pygame.display.set_mode((980, 580))
+screen = pygame.display.set_mode((980, 580), pygame.SCALED | pygame.RESIZABLE)
 pygame.display.set_caption("MNIST Model Training")
 
 network = bbml.Network("softmax_cross_entropy", model_name=model_path.name)
