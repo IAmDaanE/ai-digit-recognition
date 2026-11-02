@@ -3,7 +3,7 @@ from utils import load_mnist_csv, array_to_cords
 import pygame
 
 pygame.init()
-screen = pygame.display.set_mode((840, 522))
+screen = pygame.display.set_mode((840, 522), pygame.SCALED | pygame.RESIZABLE)
 pygame.display.set_caption("MNIST Model Hall of Fails")
 clock = pygame.time.Clock()
 

@@ -22,7 +22,7 @@ args = parser.parse_args()
 model_path = Path(args.model_path)
 
 pygame.init()
-screen = pygame.display.set_mode((880, 522))
+screen = pygame.display.set_mode((880, 522), pygame.SCALED | pygame.RESIZABLE)
 pygame.display.set_caption("MNIST Model Inference UI")
 clock = pygame.time.Clock()
 
