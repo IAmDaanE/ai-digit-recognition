@@ -19,16 +19,7 @@ parser.add_argument(
 args = parser.parse_args()
 model_path = Path(args.model_path)
 
-amount_layers = 0
-activations = []
-with open(model_path / "model.json") as f:
-    raw_unloaded_data = json.load(f)
-    amount_layers = raw_unloaded_data["amount_layers"]
-    activations = raw_unloaded_data["activations"]
-
-network = bbml.Network("softmax_cross_entropy")
-for i in range(amount_layers):
-    network.add(bbml.PreTrainedLayer(model_path / f"layer_{i}_weights.npy", model_path / f"layer_{i}_biases.npy", activations[i]))
+network = bbml.PreTrainedNetwork(model_path)
 
 images, labels = load_mnist_csv("../data/mnist_test.csv")
 

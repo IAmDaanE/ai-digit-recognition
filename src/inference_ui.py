@@ -26,16 +26,7 @@ screen = pygame.display.set_mode((880, 522), pygame.SCALED | pygame.RESIZABLE)
 pygame.display.set_caption("MNIST Model Inference UI")
 clock = pygame.time.Clock()
 
-amount_layers = 0
-activations = []
-with open(model_path / "model.json") as f:
-    raw_unloaded_data = json.load(f)
-    amount_layers = raw_unloaded_data["amount_layers"]
-    activations = raw_unloaded_data["activations"]
-
-network = bbml.Network("softmax_cross_entropy")
-for i in range(amount_layers):
-    network.add(bbml.PreTrainedLayer(model_path / f"layer_{i}_weights.npy", model_path / f"layer_{i}_biases.npy", activations[i]))
+network = bbml.PreTrainedNetwork(model_path)
 
 button_font = pygame.font.Font("../assets/JetBrainsMono-Regular.ttf", 30)
 result_font = pygame.font.Font("../assets/JetBrainsMono-Bold.ttf", 65)
@@ -167,7 +158,7 @@ while running:
     pygame.draw.rect(screen, (0, 0, 0), info_rect)
     pygame.draw.rect(screen, (0, 173, 181), info_rect, width=1)
     model_name_text = info_font.render(f"model name: {model_path.name}", True, (255, 255, 255))
-    amount_layers_text = info_font.render(f"amount layers: {len(network.layers) + 1}", True, (255, 255, 255))
+    amount_layers_text = info_font.render(f"amount layers: {len(network.network.layers) + 1}", True, (255, 255, 255))
     screen.blit(model_name_text, (info_rect.x + 15, info_rect.y + 16))
     screen.blit(amount_layers_text, (info_rect.x + 15, info_rect.y + 60))
 

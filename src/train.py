@@ -59,15 +59,7 @@ def run_training(epochs):
             vis.full_draw(network_class=network, screen=screen, display_legend=True, plot_lr=False, display_axes=False)
             pygame.display.update()
     except KeyboardInterrupt:
-        amount_layers = len(network.layers)
-        activations = []
-        for layer in network.layers:
-            activations.append(layer.activation_string)
-        with open(model_path / "model.json", "w") as f:
-            json.dump({"amount_layers": amount_layers, "activations": activations}, f)
-        for i, layer in enumerate(network.layers):
-            np.save(model_path / f"layer_{i}_weights.npy", layer.weights)
-            np.save(model_path / f"layer_{i}_biases.npy", layer.biases)
+        network.save(model_path)
         return
 
 if __name__ == "__main__":
